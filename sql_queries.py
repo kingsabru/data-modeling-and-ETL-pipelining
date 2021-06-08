@@ -19,6 +19,8 @@ CREATE TABLE IF NOT EXISTS songplays(
     session_id INT NOT NULL,
     location VARCHAR(255) NOT NULL,
     user_agent VARCHAR(255) NOT NULL,
+    FOREIGN KEY (start_time)
+        REFERENCES time (start_time),
     FOREIGN KEY (user_id)
         REFERENCES users (user_id),
     FOREIGN KEY (song_id)
@@ -64,7 +66,7 @@ CREATE TABLE IF NOT EXISTS artists(
 
 time_table_create = ("""
 CREATE TABLE IF NOT EXISTS time(
-    start_time TIMESTAMP,
+    start_time TIMESTAMP UNIQUE,
     hour INT,
     day INT,
     week INT,

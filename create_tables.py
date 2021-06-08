@@ -1,3 +1,4 @@
+from decouple import config
 import psycopg2
 from sql_queries import create_table_queries, drop_table_queries
 
@@ -7,9 +8,13 @@ def create_database():
     - Creates and connects to the sparkifydb
     - Returns the connection and cursor to sparkifydb
     """
+
+    dbname = config('DB-NAME')
+    user = config('DB-USER')
+    password = config('DB-PASSWORD')
     
     # connect to default database
-    conn = psycopg2.connect("dbname=postgres user=postgres password=pass123")
+    conn = psycopg2.connect("dbname={} user={} password={}".format(dbname, user, password))
     conn.set_session(autocommit=True)
     cur = conn.cursor()
     
@@ -21,7 +26,7 @@ def create_database():
     conn.close()    
     
     # connect to sparkify database
-    conn = psycopg2.connect("dbname=sparkifydb user=postgres password=pass123")
+    conn = psycopg2.connect("dbname=sparkifydb user={} password={}".format(user, password))
     cur = conn.cursor()
     
     return cur, conn
