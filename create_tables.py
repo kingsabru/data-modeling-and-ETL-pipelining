@@ -9,7 +9,7 @@ def create_database():
     """
     
     # connect to default database
-    conn = psycopg2.connect("dbname=datamodeldb user=postgres password=pass123")
+    conn = psycopg2.connect("dbname=postgres user=postgres password=pass123")
     conn.set_session(autocommit=True)
     cur = conn.cursor()
     
@@ -64,6 +64,7 @@ def main():
     create_tables(cur, conn)
 
     conn.close()
+    print("Completed")
 
 
 if __name__ == "__main__":
